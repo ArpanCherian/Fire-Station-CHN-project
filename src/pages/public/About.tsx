@@ -101,7 +101,7 @@ const About: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-900">Our Mission</h2>
             </div>
             <p className="text-gray-700 text-lg leading-relaxed">
-              To protect and serve our community through rapid emergency response, fire prevention, 
+              To protect and serve our society through rapid emergency response, fire prevention, 
               rescue operations, and public safety education. We are committed to preserving life, 
               property, and the environment while maintaining the highest standards of professionalism 
               and integrity.
