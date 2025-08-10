@@ -105,8 +105,8 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-12">
-      <div className="container mx-auto px-6">
+    <div className="min-h-screen bg-gray-50 pt-24 w-full">
+      <div className="px-4 w-full">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -127,7 +127,7 @@ const Contact: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-red-600 text-white rounded-xl p-6 mb-12 text-center"
+          className="bg-red-600 text-white rounded-xl p-6 mb-12 text-center max-w-6xl mx-auto"
         >
           <div className="flex items-center justify-center space-x-3 mb-3">
             <FaFire className="w-8 h-8" />
@@ -141,7 +141,7 @@ const Contact: React.FC = () => {
         </motion.div>
 
         {/* Contact Information Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-6xl mx-auto">
           {contactInfo.map((info, index) => (
             <motion.div
               key={info.title}
@@ -160,216 +160,234 @@ const Contact: React.FC = () => {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-white rounded-xl shadow-lg p-8"
-          >
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+        {/* Main Content Layout - Compact Department Contacts on Left */}
+        <div className="max-w-6xl mx-auto mb-20">
+          <div className="flex flex-col lg:flex-row gap-8">
             
-            {showSuccess && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6"
-              >
-                <div className="flex items-center space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm">✓</span>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-green-800">Message Sent Successfully!</h4>
-                    <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name *
-                  </label>
-                  <div className="relative">
-                    <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                      placeholder="Your full name"
-                    />
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address *
-                  </label>
-                  <div className="relative">
-                    <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                    <input
-                      type="email"
-                      required
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                      placeholder="your.email@example.com"
-                    />
-                  </div>
+            {/* Compact Department Contacts - Left Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="w-full lg:w-80 lg:flex-shrink-0"
+            >
+              <div className="bg-white rounded-xl shadow-lg p-5">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                  <FiPhone className="w-5 h-5 text-red-600 mr-2" />
+                  Department Contacts
+                </h3>
+                <div className="space-y-3">
+                  {departments.map((dept, index) => (
+                    <motion.div
+                      key={dept.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="border border-gray-200 rounded-lg p-3 hover:border-red-300 transition-colors duration-200"
+                    >
+                      <h4 className="font-semibold text-gray-900 text-sm mb-1">{dept.name}</h4>
+                      <p className="text-xs text-gray-600 mb-2">{dept.description}</p>
+                      <div className="space-y-1">
+                        <a 
+                          href={`tel:${dept.phone}`} 
+                          className="block text-red-600 hover:text-red-700 text-xs font-medium transition-colors duration-200"
+                        >
+                          📞 {dept.phone}
+                        </a>
+                        <a 
+                          href={`mailto:${dept.email}`} 
+                          className="block text-blue-600 hover:text-blue-700 text-xs font-medium transition-colors duration-200"
+                        >
+                          ✉️ {dept.email}
+                        </a>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={formData.subject}
-                  onChange={(e) => handleInputChange('subject', e.target.value)}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
-                  placeholder="What is this regarding?"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Message *
-                </label>
-                <div className="relative">
-                  <FiMessageCircle className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
-                  <textarea
-                    required
-                    rows={6}
-                    value={formData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 resize-none"
-                    placeholder="Please provide details about your inquiry..."
-                  />
+              {/* Operating Hours - Compact */}
+              <div className="bg-white rounded-xl shadow-lg p-5 mt-6">
+                <div className="flex items-center space-x-2 mb-4">
+                  <FiClock className="w-5 h-5 text-red-600" />
+                  <h3 className="text-lg font-bold text-gray-900">Operating Hours</h3>
                 </div>
-              </div>
-
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                className={`w-full flex items-center justify-center space-x-3 py-4 rounded-lg font-bold text-lg transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-red-600 hover:bg-red-700 shadow-lg hover:shadow-xl'
-                } text-white`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  <>
-                    <FiSend className="w-6 h-6" />
-                    <span>Send Message</span>
-                  </>
-                )}
-              </motion.button>
-            </form>
-          </motion.div>
-
-          {/* Map and Additional Info */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="space-y-8"
-          >
-            {/* Interactive Map */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Find Our Station</h3>
-                <p className="text-gray-600 mb-4">
-                  Located in the heart of Chengannur, our fire station is strategically positioned 
-                  for rapid response throughout the district.
-                </p>
-              </div>
-              <div className="h-80 bg-gray-200 relative overflow-hidden">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3934.8951234567!2d76.6174!3d9.3139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0884c1aa394b67%3A0x21c7c1aa394b6701!2sChengannur%2C%20Kerala%2C%20India!5e0!3m2!1sen!2sus!4v1234567890123"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Chengannur Fire Station Location"
-                ></iframe>
-              </div>
-            </div>
-
-            {/* Operating Hours */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <div className="flex items-center space-x-3 mb-6">
-                <FiClock className="w-6 h-6 text-red-600" />
-                <h3 className="text-xl font-bold text-gray-900">Operating Hours</h3>
-              </div>
-              <div className="space-y-3">
-                {operatingHours.map((schedule, index) => (
-                  <div
-                    key={index}
-                    className={`flex justify-between items-center py-2 px-3 rounded-lg ${
-                      schedule.highlight 
-                        ? 'bg-red-50 border border-red-200' 
-                        : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <span className={`font-medium ${
-                      schedule.highlight ? 'text-red-800' : 'text-gray-700'
-                    }`}>
-                      {schedule.day}
-                    </span>
-                    <span className={`font-semibold ${
-                      schedule.highlight ? 'text-red-600' : 'text-gray-900'
-                    }`}>
-                      {schedule.hours}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Department Contacts */}
-            <div className="bg-white rounded-xl shadow-lg p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Department Contacts</h3>
-              <div className="space-y-4">
-                {departments.map((dept, index) => (
-                  <motion.div
-                    key={dept.name}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="border border-gray-200 rounded-lg p-4 hover:border-red-300 transition-colors duration-200"
-                  >
-                    <h4 className="font-bold text-gray-900 mb-2">{dept.name}</h4>
-                    <p className="text-sm text-gray-600 mb-3">{dept.description}</p>
-                    <div className="flex flex-col space-y-1">
-                      <a href={`tel:${dept.phone}`} className="text-red-600 hover:text-red-700 text-sm font-medium">
-                        📞 {dept.phone}
-                      </a>
-                      <a href={`mailto:${dept.email}`} className="text-blue-600 hover:text-blue-700 text-sm font-medium">
-                        ✉️ {dept.email}
-                      </a>
+                <div className="space-y-2">
+                  {operatingHours.map((schedule, index) => (
+                    <div
+                      key={index}
+                      className={`flex justify-between items-center py-1 px-2 rounded text-sm ${
+                        schedule.highlight 
+                          ? 'bg-red-50 border border-red-200' 
+                          : 'hover:bg-gray-50'
+                      }`}
+                    >
+                      <span className={`font-medium ${
+                        schedule.highlight ? 'text-red-800' : 'text-gray-700'
+                      }`}>
+                        {schedule.day}
+                      </span>
+                      <span className={`font-semibold text-xs ${
+                        schedule.highlight ? 'text-red-600' : 'text-gray-900'
+                      }`}>
+                        {schedule.hours}
+                      </span>
                     </div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </motion.div>
+
+            {/* Contact Form and Map - Right Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex-1"
+            >
+              <div className="space-y-8">
+                
+                {/* Contact Form */}
+                <div className="bg-white rounded-xl shadow-lg p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+                  
+                  {showSuccess && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
+                          <span className="text-white text-sm">✓</span>
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-green-800">Message Sent Successfully!</h4>
+                          <p className="text-green-600 text-sm">We'll get back to you within 24 hours.</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Full Name *
+                        </label>
+                        <div className="relative">
+                          <FiUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                            placeholder="Your full name"
+                          />
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Email Address *
+                        </label>
+                        <div className="relative">
+                          <FiMail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                          <input
+                            type="email"
+                            required
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                            placeholder="your.email@example.com"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Subject *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.subject}
+                        onChange={(e) => handleInputChange('subject', e.target.value)}
+                        className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200"
+                        placeholder="What is this regarding?"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Message *
+                      </label>
+                      <div className="relative">
+                        <FiMessageCircle className="absolute left-3 top-3 text-gray-400 w-5 h-5" />
+                        <textarea
+                          required
+                          rows={6}
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-colors duration-200 resize-none"
+                          placeholder="Please provide details about your inquiry..."
+                        />
+                      </div>
+                    </div>
+
+                    <motion.button
+                      type="submit"
+                      disabled={isSubmitting}
+                      whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                      whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                      className={`w-full flex items-center justify-center space-x-3 py-4 rounded-lg font-bold text-lg transition-all duration-200 ${
+                        isSubmitting
+                          ? 'bg-gray-400 cursor-not-allowed'
+                          : 'bg-red-600 hover:bg-red-700 shadow-lg hover:shadow-xl'
+                      } text-white`}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white"></div>
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FiSend className="w-6 h-6" />
+                          <span>Send Message</span>
+                        </>
+                      )}
+                    </motion.button>
+                  </form>
+                </div>
+
+                {/* Map */}
+                <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">Find Our Station</h3>
+                    <p className="text-gray-600 mb-4">
+                      Located in the heart of Chengannur, our fire station is strategically positioned 
+                      for rapid response throughout the district.
+                    </p>
+                  </div>
+                  <div className="h-80 bg-gray-200 relative overflow-hidden">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3934.8951234567!2d76.6174!3d9.3139!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0884c1aa394b67%3A0x21c7c1aa394b6701!2sChengannur%2C%20Kerala%2C%20India!5e0!3m2!1sen!2sus!4v1234567890123"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title="Chengannur Fire Station Location"
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
